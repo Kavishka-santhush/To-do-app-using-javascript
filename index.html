@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .input {
+            padding: 10px;
+            width: 500px;
+            font-size: 30px;
+            background-color: red;
+            color: white;
+            font-weight: bold;
+        }
+
+        .add {
+            padding: 10px;
+            background-color: orange;
+            display: block;
+            margin: 20px auto;
+            width: 100px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        li {
+            list-style-type: none;
+            text-align: center;
+            border: solid white 2px;
+            width: 800px;
+            margin: 10px auto;
+            border-radius: 20px;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .delete {
+            float: right;
+            background-color: black;
+            border: white solid 2px;
+            color: white;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 15px;
+        }
+
+        .delete:hover {
+            background-color: red;
+            color: white;
+        }
+
+        .active {
+            background-color: green;
+            text-decoration: line-through;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>To do app
+    </h1>
+    <input type="text" class="input" id="input" />
+    <button class="add" onclick="add()">Add</button>
+    <div id="list">
+        <li class="item">item 1<button class="delete">&times</button></li>
+        <li class="item">item 2<button class="delete">&times</button></li>
+        <li class="item">item 3<button class="delete">&times</button></li>
+    </div>
+
+    <script>
+        items = document.getElementsByClassName("item");
+        deletebtns = document.getElementsByClassName("delete");
+        input = document.getElementById("input");
+        list = document.getElementById("list");
+        function add() {
+            if (input.value != "") {
+                li = document.createElement("li");
+                text = input.value;
+                text = document.createTextNode(text);
+                li.appendChild(text);
+                list.appendChild(li);
+                btn = document.createElement("button");
+                btntext = document.createTextNode("\u00D7");
+                btn.appendChild(btntext);
+                li.appendChild(btn);
+                btn.classList.add('delete');
+                li.classList.add('item');
+                input.value = "";
+
+
+                for (i = 0; i < items.length; i++) {
+                    items[i].addEventListener("click", function () {
+                        this.classList.toggle('active');
+                    });
+
+                    deletebtns[i].addEventListener("click", function () {
+                        this.parentElement.style.display = "none";
+                    });
+                }
+            }
+            else {
+                alert("You must type something");
+            }
+        }
+
+        for (i = 0; i < items.length; i++) {
+            items[i].addEventListener("click", function () {
+                this.classList.toggle('active');
+            });
+
+            deletebtns[i].addEventListener("click", function () {
+                this.parentElement.style.display = "none";
+            });
+        }
+
+
+        document.addEventListener("keypress", function onEvent(event) {
+            if (event.key === "Enter") {
+                add();
+            }
+        });
+
+        alert("if you want to mark item as completed then click in the particular item");
+    </script>
+</body>
+
+</html>
